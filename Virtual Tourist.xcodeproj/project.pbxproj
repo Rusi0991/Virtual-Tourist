@@ -14,6 +14,7 @@
 		57B289002730BAB10032965A /* Virtual_Tourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 57B288FE2730BAB10032965A /* Virtual_Tourist.xcdatamodeld */; };
 		57B289022730BAB30032965A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57B289012730BAB30032965A /* Assets.xcassets */; };
 		57B289052730BAB30032965A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57B289032730BAB30032965A /* LaunchScreen.storyboard */; };
+		57B2890D2730C6F00032965A /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B2890C2730C6F00032965A /* PhotoAlbumViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		57B289012730BAB30032965A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		57B289042730BAB30032965A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		57B289062730BAB30032965A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		57B2890C2730C6F00032965A /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				57B288F52730BAB10032965A /* AppDelegate.swift */,
 				57B288F72730BAB10032965A /* SceneDelegate.swift */,
+				57B2890C2730C6F00032965A /* PhotoAlbumViewController.swift */,
 				57B288F92730BAB10032965A /* Travel Locations Map View.swift */,
 				57B288FB2730BAB10032965A /* Main.storyboard */,
 				57B289012730BAB30032965A /* Assets.xcassets */,
@@ -144,6 +147,7 @@
 				57B289002730BAB10032965A /* Virtual_Tourist.xcdatamodeld in Sources */,
 				57B288FA2730BAB10032965A /* Travel Locations Map View.swift in Sources */,
 				57B288F62730BAB10032965A /* AppDelegate.swift in Sources */,
+				57B2890D2730C6F00032965A /* PhotoAlbumViewController.swift in Sources */,
 				57B288F82730BAB10032965A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
