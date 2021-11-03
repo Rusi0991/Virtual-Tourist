@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3gM-d2-XL6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hM9-Pd-5mw">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
@@ -116,8 +116,8 @@
                     <navigationItem key="navigationItem" id="5QM-CC-LXO"/>
                     <connections>
                         <outlet property="collectionButton" destination="4sn-80-3qV" id="yvq-WS-zsp"/>
+                        <outlet property="collectionView" destination="5Yk-1D-car" id="Kek-eL-d3e"/>
                         <outlet property="mapView2" destination="8rY-cl-S5B" id="O8I-G5-OPf"/>
-                        <outlet property="photoCollection" destination="5Yk-1D-car" id="U1o-pp-3pO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I1O-nB-HId" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

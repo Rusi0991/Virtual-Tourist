@@ -13,14 +13,15 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     
     @IBOutlet weak var mapView2: MKMapView!
     
-    @IBOutlet weak var photoCollection: UICollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     
     @IBOutlet weak var collectionButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        photoCollection.delegate = self
-        photoCollection.dataSource = self
+       collectionView.delegate = self
+       collectionView.dataSource = self
         mapView2.delegate = self
 
         // Do any additional setup after loading the view.
@@ -41,11 +42,13 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        <#code#>
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        <#code#>
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
+        
+        return cell
     }
     
 }
