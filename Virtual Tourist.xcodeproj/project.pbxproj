@@ -16,6 +16,7 @@
 		57B289052730BAB30032965A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57B289032730BAB30032965A /* LaunchScreen.storyboard */; };
 		57B2890D2730C6F00032965A /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B2890C2730C6F00032965A /* PhotoAlbumViewController.swift */; };
 		57B2891027321ACA0032965A /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B2890F27321ACA0032965A /* CollectionViewCell.swift */; };
+		57B2891827434C1E0032965A /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B2891727434C1E0032965A /* DataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		57B289062730BAB30032965A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57B2890C2730C6F00032965A /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
 		57B2890F27321ACA0032965A /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		57B2891727434C1E0032965A /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,13 +66,12 @@
 			children = (
 				57B288F52730BAB10032965A /* AppDelegate.swift */,
 				57B288F72730BAB10032965A /* SceneDelegate.swift */,
+				57B2891127321AD70032965A /* Model */,
 				57B2890E27321A830032965A /* View Controller */,
 				57B288FB2730BAB10032965A /* Main.storyboard */,
-				57B2891127321AD70032965A /* Model */,
 				57B289012730BAB30032965A /* Assets.xcassets */,
 				57B289032730BAB30032965A /* LaunchScreen.storyboard */,
 				57B289062730BAB30032965A /* Info.plist */,
-				57B288FE2730BAB10032965A /* Virtual_Tourist.xcdatamodeld */,
 			);
 			path = "Virtual Tourist";
 			sourceTree = "<group>";
@@ -78,8 +79,8 @@
 		57B2890E27321A830032965A /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				57B2890C2730C6F00032965A /* PhotoAlbumViewController.swift */,
 				57B288F92730BAB10032965A /* Travel Locations Map View.swift */,
+				57B2890C2730C6F00032965A /* PhotoAlbumViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -88,6 +89,8 @@
 			isa = PBXGroup;
 			children = (
 				57B2890F27321ACA0032965A /* CollectionViewCell.swift */,
+				57B288FE2730BAB10032965A /* Virtual_Tourist.xcdatamodeld */,
+				57B2891727434C1E0032965A /* DataController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -163,6 +166,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57B2891827434C1E0032965A /* DataController.swift in Sources */,
 				57B289002730BAB10032965A /* Virtual_Tourist.xcdatamodeld in Sources */,
 				57B288FA2730BAB10032965A /* Travel Locations Map View.swift in Sources */,
 				57B2891027321ACA0032965A /* CollectionViewCell.swift in Sources */,

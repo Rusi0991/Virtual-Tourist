@@ -8,9 +8,16 @@
 import UIKit
 import MapKit
 
+ 
+    
+
+
+
+
 class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, MKMapViewDelegate {
     
-    
+    var latitude : Double = 0.00
+    var longitude : Double = 0.00
     @IBOutlet weak var mapView2: MKMapView!
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -24,7 +31,11 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
        collectionView.dataSource = self
         mapView2.delegate = self
 
-        // Do any additional setup after loading the view.
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        mapView2.addAnnotation(annotation)
+        
     }
     
 
@@ -52,3 +63,5 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
 }
+
+

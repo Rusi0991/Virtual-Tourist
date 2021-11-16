@@ -9,6 +9,8 @@ import UIKit
 import MapKit
 
 class ViewController: UIViewController, MKMapViewDelegate {
+    
+    
 
     @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
@@ -39,5 +41,40 @@ class ViewController: UIViewController, MKMapViewDelegate {
             
         }
     }
+//     tells the delegate that user tapped annotation view button
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        //To segue to PhotoAlbumView Controller
+
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let PhotoAlbumViewController = storyBoard.instantiateViewController(withIdentifier: "PhotoAlbumViewController") as! PhotoAlbumViewController
+
+            let annotation = mapView.selectedAnnotations[0]
+            let latitude = annotation.coordinate.latitude
+            let longitude = annotation.coordinate.longitude
+            let pin = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+
+        PhotoAlbumViewController.latitude = pin.latitude
+        PhotoAlbumViewController.longitude = pin.longitude
+
+
+            self.present(PhotoAlbumViewController, animated: true, completion: nil)
+    }
+    
+//    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+//       let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let annotation = mapView.selectedAnnotations[0]
+//        let latitude = annotation.coordinate.latitude
+//        let longitude = annotation.coordinate.longitude
+//        let pin = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+//
+//
+//                let PhotoAlbumViewController = storyBoard.instantiateViewController(withIdentifier: "PhotoAlbumViewController") as! PhotoAlbumViewController
+//
+//        PhotoAlbumViewController.longitude = pin.longitude
+//        PhotoAlbumViewController.latitude = pin.latitude
+//
+//
+//                navigationController?.pushViewController(PhotoAlbumViewController, animated: true)
+//    }
 }
 
