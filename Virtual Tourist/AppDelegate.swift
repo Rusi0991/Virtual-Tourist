@@ -15,8 +15,10 @@ let dataController = DataController(modelName: "Virtual_Tourist")
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        dataController.load()
-        // Override point for customization after application launch.
+//        dataController.load()
+//        
+//        
+        
         return true
     }
 

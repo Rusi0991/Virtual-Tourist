@@ -16,8 +16,9 @@ import MapKit
 
 class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, MKMapViewDelegate {
     
-    var latitude : Double = 0.00
-    var longitude : Double = 0.00
+    var pin : Pin!
+    var dataController : DataController!
+    
     @IBOutlet weak var mapView2: MKMapView!
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -33,7 +34,8 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
 
         
         let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        annotation.coordinate.longitude = pin.longitude
+        annotation.coordinate.latitude = pin.latitude
         mapView2.addAnnotation(annotation)
         
     }

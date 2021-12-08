@@ -7,16 +7,47 @@
 
 import UIKit
 import MapKit
+import CoreData
 
-class ViewController: UIViewController, MKMapViewDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsControllerDelegate  {
     
+    var pin : Pin!
     
+    var dataController : DataController!
+    var fetchedResultsController : NSFetchedResultsController<Pin>!
 
     @IBOutlet weak var mapView: MKMapView!
+    
+    
+    fileprivate func setUpFetchResultsController() {
+        let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
+                fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
+        do {
+            try? fetchedResultsController.performFetch()
+        } catch{
+            fatalError("The fetch could not be performed :\(error.localizedDescription)")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         mapView.delegate = self
+        
+        setUpFetchResultsController()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         dropPin()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        fetchedResultsController = nil
     }
     
     func dropPin(){
@@ -24,57 +55,71 @@ class ViewController: UIViewController, MKMapViewDelegate {
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(chosenLocation(gestureRecognizer:)))
         gestureRecognizer.minimumPressDuration = 2
         mapView.addGestureRecognizer(gestureRecognizer)
+        
+        
        
     }
     @objc func chosenLocation(gestureRecognizer : UILongPressGestureRecognizer){
         
-        if gestureRecognizer.state == .began {
+        if gestureRecognizer.state == .ended {
             let touchedPoint = gestureRecognizer.location(in: self.mapView)
+            
             
         // for converting touched point to coordinates
             let touchedCoordinates = self.mapView.convert(touchedPoint, toCoordinateFrom: self.mapView)
+            
             
             // create a pin
             let annotation = MKPointAnnotation()
             annotation.coordinate = touchedCoordinates
             self.mapView.addAnnotation(annotation)
-            
+            addPin(lat: touchedCoordinates.latitude, long: touchedCoordinates.longitude)
+            print("pin: \(touchedCoordinates.latitude), \(touchedCoordinates.longitude)")
         }
     }
-//     tells the delegate that user tapped annotation view button
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        //To segue to PhotoAlbumView Controller
+    
 
-            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let PhotoAlbumViewController = storyBoard.instantiateViewController(withIdentifier: "PhotoAlbumViewController") as! PhotoAlbumViewController
-
-            let annotation = mapView.selectedAnnotations[0]
-            let latitude = annotation.coordinate.latitude
-            let longitude = annotation.coordinate.longitude
-            let pin = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-
-        PhotoAlbumViewController.latitude = pin.latitude
-        PhotoAlbumViewController.longitude = pin.longitude
-
-
-            self.present(PhotoAlbumViewController, animated: true, completion: nil)
+    
+    func addPin(lat : Double , long : Double){
+        let pin = Pin(context: dataController!.viewContext)
+        pin.latitude = lat
+        pin.longitude = long
+        pin.creationDate = Date()
+        do {
+            try dataController?.viewContext.save()
+        } catch {
+            
+            fatalError("Pin cannot be added :\(error.localizedDescription)")
+        }
+        
+        setUpFetchResultsController() //-> after saving the pin, grab pins from core data again so that it includes the new one.
+        
     }
     
-//    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-//       let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//        let annotation = mapView.selectedAnnotations[0]
-//        let latitude = annotation.coordinate.latitude
-//        let longitude = annotation.coordinate.longitude
-//        let pin = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-//
-//
-//                let PhotoAlbumViewController = storyBoard.instantiateViewController(withIdentifier: "PhotoAlbumViewController") as! PhotoAlbumViewController
-//
-//        PhotoAlbumViewController.longitude = pin.longitude
-//        PhotoAlbumViewController.latitude = pin.latitude
-//
-//
-//                navigationController?.pushViewController(PhotoAlbumViewController, animated: true)
-//    }
+
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        mapView.deselectAnnotation(view.annotation, animated: false)  // otherwise it always shows same pin. you need to deselect
+        
+        let latitudeClicked = view.annotation?.coordinate.latitude
+        let longitudeClicked = view.annotation?.coordinate.longitude
+        
+        //Find the clicked pin in Core Data.
+        if let pins = fetchedResultsController.fetchedObjects{
+            for pin in pins {
+                if pin.latitude == latitudeClicked && pin.longitude == longitudeClicked {
+                    if let vc = storyboard?.instantiateViewController(withIdentifier: "PhotoAlbumViewController") as? PhotoAlbumViewController {
+                        vc.pin = pin
+                        vc.dataController = dataController
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }else {
+                        fatalError("error!")
+                        
+                    }
+                }
+            }
+        }
+    }
 }
+
 
