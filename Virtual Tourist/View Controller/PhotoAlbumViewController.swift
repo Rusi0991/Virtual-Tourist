@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import CoreData
 
  
     
@@ -30,6 +31,9 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         super.viewDidLoad()
        collectionView.delegate = self
        collectionView.dataSource = self
+        collectionView.isUserInteractionEnabled = true
+        collectionView.allowsSelection = true
+        collectionView.allowsMultipleSelection = true
         mapView2.delegate = self
 
         

@@ -53,7 +53,7 @@ class ViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsContr
     func dropPin(){
     
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(chosenLocation(gestureRecognizer:)))
-        gestureRecognizer.minimumPressDuration = 2
+        gestureRecognizer.minimumPressDuration = 1.5
         mapView.addGestureRecognizer(gestureRecognizer)
         
         
