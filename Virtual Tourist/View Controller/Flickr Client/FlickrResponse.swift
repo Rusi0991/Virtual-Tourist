@@ -17,7 +17,7 @@ struct PhotoResponse: Codable {
     }
 
 struct Photos : Codable{
-    let page Int
+    let page : Int
     let pages : String
     let photos : Int
     let perPage : String
@@ -37,3 +37,4 @@ struct FlickrPhoto : Codable{
     let isFamily : Int
 }
 
+}
