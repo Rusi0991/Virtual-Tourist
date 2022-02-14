@@ -15,10 +15,15 @@ import CoreData
 
 
 
-class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, MKMapViewDelegate {
+class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedResultsControllerDelegate,UICollectionViewDelegate, UICollectionViewDataSource {
     
     var pin : Pin!
+    var photo: Photo!
     var dataController : DataController!
+    var fetchedResultController : NSFetchedResultsController<Photo>!
+    
+    
+    var fetchedResultsController: NSFetchedResultsController<Photo>!
     
     @IBOutlet weak var mapView2: MKMapView!
     
@@ -43,19 +48,34 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDataSource, UI
         mapView2.addAnnotation(annotation)
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setUpFetchedResultController(){
+        let fetchRequest : NSFetchRequest<Photo> = Photo.fetchRequest()
+        let predicate = NSPredicate(format : "pin == %@", pin)//fetch to the photos spesific to the clicked pin.
+        fetchRequest.predicate = predicate
+        
+        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultController.delegate = self
+        do {
+            try fetchedResultController.performFetch()
+        } catch  {
+            fatalError("The fetch couldn't be performed: \(error.localizedDescription)")
+        }
     }
-    */
+    
+    
     @IBAction func collectionButtonTapped(_ sender: Any) {
         
+    }
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return fetchedResultController.sections?.count ?? 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

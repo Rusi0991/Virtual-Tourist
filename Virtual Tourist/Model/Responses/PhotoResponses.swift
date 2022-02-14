@@ -1,8 +1,8 @@
 //
-//  FlickrClient.swift
+//  Responses.swift
 //  Virtual Tourist
 //
-//  Created by Ruslan Ismayilov on 12/9/21.
+//  Created by Ruslan Ismayilov on 1/21/22.
 //
 
 import Foundation
