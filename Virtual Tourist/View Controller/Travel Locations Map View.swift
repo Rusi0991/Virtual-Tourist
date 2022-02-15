@@ -11,12 +11,30 @@ import CoreData
 
 class ViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsControllerDelegate  {
     
-    var pin : Pin!
+    
     
     var dataController : DataController!
     var fetchedResultsController : NSFetchedResultsController<Pin>!
 
     @IBOutlet weak var mapView: MKMapView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        mapView.delegate = self
+        mapView.isUserInteractionEnabled = true
+        setUpFetchResultsController()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        dropPin()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        fetchedResultsController = nil
+    }
     
     
     fileprivate func setUpFetchResultsController() {
@@ -33,22 +51,8 @@ class ViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsContr
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        mapView.delegate = self
-        
-        setUpFetchResultsController()
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        dropPin()
-    }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        fetchedResultsController = nil
-    }
+  
     
     func dropPin(){
     

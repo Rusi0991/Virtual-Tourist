@@ -32,6 +32,8 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
     
     @IBOutlet weak var collectionButton: UIButton!
     
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
        collectionView.delegate = self
@@ -42,18 +44,37 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
         mapView2.delegate = self
 
         
-        let annotation = MKPointAnnotation()
-        annotation.coordinate.longitude = pin.longitude
-        annotation.coordinate.latitude = pin.latitude
-        mapView2.addAnnotation(annotation)
+        setupMap()
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        getPhotos()
     }
     
 
+    func getPhotos(){
+        if fetchedResultController.fetchedObjects?.count == 0 {
+            FlickrClient.getPhotos(latitude: pin.latitude, longitude: pin.longitude) { response, error in
+                if error == nil && response?.photos.photo != nil && response?.photos.total != 0{
+                    guard let response = response else {return}
+                    for image in response.photos.photo{
+                        let photo = Photo(context: self.dataController.viewContext)
+                        photo.creationDate = Date()
+                        photo.imageURL = "https://live.staticflickr.com/\(image.server)/\(image.id)_\(image.secret).jpg"
+                        photo.pin = self.pin
+                        do {
+                            try self.dataController.viewContext.save()
+                        } catch  {
+                            fatalError("Unable to save photos\(error.localizedDescription)")
+                        }
+                    }
+ 
+                }
+            }
+        }
+    }
+    
     func setUpFetchedResultController(){
         let fetchRequest : NSFetchRequest<Photo> = Photo.fetchRequest()
         let predicate = NSPredicate(format : "pin == %@", pin)//fetch to the photos spesific to the clicked pin.
@@ -86,6 +107,22 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         
         return cell
+    }
+    
+    fileprivate func setupMap() {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate.longitude = pin.longitude
+        annotation.coordinate.latitude = pin.latitude
+        mapView2.addAnnotation(annotation)
+        
+        
+        //center the pin
+        let coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
+        //set zoom level
+        let span = MKCoordinateSpan(latitudeDelta: 0.275, longitudeDelta: 0.275)
+        
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        mapView2.setRegion(region, animated: true)
     }
     
 }
