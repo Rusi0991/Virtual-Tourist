@@ -49,7 +49,9 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setUpFetchedResultController()
         getPhotos()
+        setupMap()
     }
     
 
@@ -68,10 +70,17 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
                         } catch  {
                             fatalError("Unable to save photos\(error.localizedDescription)")
                         }
+                        self.collectionView.reloadData()
                     }
+                    print("album saved")
  
+                }else{
+                    print("No photo downloaded")
+                    
                 }
             }
+        } else {
+            return
         }
     }
     
@@ -100,12 +109,41 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        setUpFetchedResultController()
+        return fetchedResultController.sections?[section].numberOfObjects ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         
+        let aPhoto = fetchedResultController.object(at : indexPath)
+        
+        if let url = aPhoto.imageURL{
+            if let image = aPhoto.image{
+            cell.imageView.image = UIImage(data: image)
+            } else {
+                FlickrClient.downloadPhotos(imageUrl: URL(string: url)!) { data, error in
+                    if let data = data{
+                        let image = UIImage(data: data)
+                        cell.imageView.image = image
+                        
+                        do {
+                            try self.dataController.viewContext.save()
+                        } catch {
+                            fatalError("Unable to save photos: \(error.localizedDescription)")
+                        }
+                        
+                    } else {
+                        fatalError("error:\(error?.localizedDescription)")
+                    
+                    }
+                }
+            }
+        } else{
+            
+            let placeholderImage = UIImage(systemName: "Flickr")
+            cell.imageView.image = placeholderImage
+        }
         return cell
     }
     

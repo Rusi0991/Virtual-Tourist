@@ -27,7 +27,7 @@ class FlickrClient{
         }
     }
     
-    class func taskForGetRequest<ResponseType : Decodable>(url : URL,responseType : ResponseType.Type, completion : @escaping(ResponseType?, Error?)->Void)->URLSessionTask{
+    @discardableResult class func taskForGetRequest<ResponseType : Decodable>(url : URL,responseType : ResponseType.Type, completion : @escaping(ResponseType?, Error?)->Void)->URLSessionTask{
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data else{
                 DispatchQueue.main.async {
@@ -62,6 +62,21 @@ class FlickrClient{
             }
         }
         
+    }
+    
+    class func downloadPhotos(imageUrl : URL, completion : @escaping(Data?, Error?) -> Void){
+        let task = URLSession.shared.dataTask(with: imageUrl) { data, response, error in
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                completion(data, nil)
+            }
+        }
+        task.resume()
     }
     
 }
