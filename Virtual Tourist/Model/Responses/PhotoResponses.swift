@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 struct PhotoResponse: Codable {
     
     let photos: Photos
@@ -18,9 +19,9 @@ struct PhotoResponse: Codable {
 
 struct Photos : Codable{
     let page : Int
-    let pages : String
+    let pages : Int
     let total : Int
-    let perPage : String
+    let perpage : Int
     let photo : [FlickrPhoto]
     
 }
@@ -32,9 +33,9 @@ struct FlickrPhoto : Codable{
     let server : String
     let farm : Int
     let title : String
-    let isPublic : Int
-    let isUser : Int
-    let isFamily : Int
+    let ispublic : Int
+    let isfriend : Int
+    let isfamily : Int
 }
 
 }

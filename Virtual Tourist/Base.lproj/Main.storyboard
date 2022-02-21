@@ -60,7 +60,7 @@
                                             <constraint firstAttribute="height" constant="211" id="Pci-35-RTd"/>
                                         </constraints>
                                     </mapView>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Yk-1D-car">
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Yk-1D-car">
                                         <rect key="frame" x="0.0" y="243" width="374" height="442"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -77,7 +77,7 @@
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="jbv-8l-kMW" customClass="CollectionViewCell" customModule="Virtual_Tourist" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="178" height="178"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rhM-6A-Hlc" customClass="CollectionViewCell" customModule="Virtual_Tourist">
+                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rhM-6A-Hlc" customClass="UIImageView">
                                                     <rect key="frame" x="0.0" y="0.0" width="178" height="178"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>

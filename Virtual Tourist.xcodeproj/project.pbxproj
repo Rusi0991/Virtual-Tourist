@@ -52,7 +52,6 @@
 		579FD9A8279B0C51001F18BB /* Responses */ = {
 			isa = PBXGroup;
 			children = (
-				57CA8253276291F2005EF7D1 /* Flickr Client */,
 				579FD9A9279B0C78001F18BB /* PhotoResponses.swift */,
 			);
 			path = Responses;
@@ -104,6 +103,7 @@
 				57B2890F27321ACA0032965A /* CollectionViewCell.swift */,
 				57B288FE2730BAB10032965A /* Virtual_Tourist.xcdatamodeld */,
 				57B2891727434C1E0032965A /* DataController.swift */,
+				57CA8253276291F2005EF7D1 /* Flickr Client */,
 				579FD9A8279B0C51001F18BB /* Responses */,
 			);
 			path = Model;

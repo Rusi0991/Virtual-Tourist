@@ -9,12 +9,6 @@ import UIKit
 import MapKit
 import CoreData
 
- 
-    
-
-
-
-
 class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedResultsControllerDelegate,UICollectionViewDelegate, UICollectionViewDataSource {
     
     var pin : Pin!
@@ -23,12 +17,9 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
     var fetchedResultController : NSFetchedResultsController<Photo>!
     
     
-    var fetchedResultsController: NSFetchedResultsController<Photo>!
-    
     @IBOutlet weak var mapView2: MKMapView!
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
     
     @IBOutlet weak var collectionButton: UIButton!
     
