@@ -60,43 +60,43 @@
                                             <constraint firstAttribute="height" constant="211" id="Pci-35-RTd"/>
                                         </constraints>
                                     </mapView>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Yk-1D-car">
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Yk-1D-car">
                                         <rect key="frame" x="0.0" y="243" width="374" height="442"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="442" id="F26-Tu-HRE"/>
                                             <constraint firstAttribute="width" constant="374" id="eUd-I5-wy7"/>
                                         </constraints>
-                                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ll3-Wh-lMK">
-                                            <size key="itemSize" width="178" height="178"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="0mO-SU-Zoa" customClass="CustomLayout" customModule="Virtual_Tourist" customModuleProvider="target">
+                                            <size key="itemSize" width="128" height="128"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="jbv-8l-kMW" customClass="CollectionViewCell" customModule="Virtual_Tourist" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="178" height="178"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="135" height="135"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rhM-6A-Hlc" customClass="UIImageView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="178" height="178"/>
+                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="8W3-jd-yWQ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="135" height="135"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Flickr-Transparent-Logo" translatesAutoresizingMaskIntoConstraints="NO" id="4en-zm-hGM">
-                                                            <rect key="frame" x="8" y="8" width="162" height="162"/>
+                                                            <rect key="frame" x="2" y="2" width="130" height="130"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="162" id="VBG-aM-WEC"/>
-                                                                <constraint firstAttribute="width" constant="162" id="kkm-JL-O6J"/>
+                                                                <constraint firstAttribute="height" constant="130" id="95U-hk-OnG"/>
+                                                                <constraint firstAttribute="width" constant="130" id="zvY-rI-zl9"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="4en-zm-hGM" secondAttribute="bottom" constant="8" id="VvE-6g-7JV"/>
-                                                        <constraint firstItem="4en-zm-hGM" firstAttribute="leading" secondItem="rhM-6A-Hlc" secondAttribute="leading" constant="8" id="dq0-qY-70d"/>
-                                                        <constraint firstAttribute="trailing" secondItem="4en-zm-hGM" secondAttribute="trailing" constant="8" id="hAf-ve-N1l"/>
-                                                        <constraint firstItem="4en-zm-hGM" firstAttribute="top" secondItem="rhM-6A-Hlc" secondAttribute="top" constant="8" id="oJL-Ym-6cY"/>
+                                                        <constraint firstAttribute="bottom" secondItem="4en-zm-hGM" secondAttribute="bottom" constant="3" id="3Ak-Xc-IyZ"/>
+                                                        <constraint firstAttribute="trailing" secondItem="4en-zm-hGM" secondAttribute="trailing" constant="3" id="8di-Yc-EoR"/>
+                                                        <constraint firstItem="4en-zm-hGM" firstAttribute="top" secondItem="8W3-jd-yWQ" secondAttribute="top" constant="2" id="8lK-OT-eTk"/>
+                                                        <constraint firstItem="4en-zm-hGM" firstAttribute="leading" secondItem="8W3-jd-yWQ" secondAttribute="leading" constant="2" id="dW1-T9-Z9Q"/>
                                                     </constraints>
                                                 </collectionViewCellContentView>
-                                                <size key="customSize" width="178" height="178"/>
+                                                <size key="customSize" width="135" height="135"/>
                                                 <connections>
                                                     <outlet property="imageView" destination="4en-zm-hGM" id="29c-WY-cH9"/>
                                                 </connections>

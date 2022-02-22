@@ -138,6 +138,7 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
         return cell
     }
     
+    
     fileprivate func setupMap() {
         let annotation = MKPointAnnotation()
         annotation.coordinate.longitude = pin.longitude
@@ -155,5 +156,4 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
     }
     
 }
-
 
