@@ -20,7 +20,7 @@ class ViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsContr
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        loadZoomLevel()
         mapView.delegate = self
         mapView.isUserInteractionEnabled = true
         setUpFetchResultsController()
@@ -29,6 +29,8 @@ class ViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsContr
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         dropPin()
+        mapView.isUserInteractionEnabled = true
+        saveZoomLevel()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -124,6 +126,49 @@ class ViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsContr
             }
         }
     }
+    
+    //MARK: for the first time
+    func saveZoomLevel(){
+        
+        UserDefaults.standard.set(mapView.centerCoordinate.latitude, forKey: KeysForZoomLevel.latitude)
+        UserDefaults.standard.set(mapView.centerCoordinate.longitude, forKey: KeysForZoomLevel.longitude)
+        UserDefaults.standard.set(mapView.region.span.latitudeDelta, forKey: KeysForZoomLevel.latitudeDelta)
+        UserDefaults.standard.set(mapView.region.span.longitudeDelta, forKey: KeysForZoomLevel.longitudeDelta)
+        
+    }
+    
+    //MARK: if it has launched before
+    func loadZoomLevel(){
+        
+        guard let longitude = UserDefaults.standard.object(forKey: KeysForZoomLevel.longitude) as? Double else {return}
+        guard let latitude = UserDefaults.standard.object(forKey: KeysForZoomLevel.latitude) as? Double else {return}
+        guard let latitudeDelta = UserDefaults.standard.object(forKey: KeysForZoomLevel.latitudeDelta) as? Double else {return}
+        guard let longitudeDelta = UserDefaults.standard.object(forKey: KeysForZoomLevel.longitudeDelta) as? Double else {return}
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let span = MKCoordinateSpan(latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        mapView.setRegion(region, animated: true)
+        
+        
+        //MARK: create a pin objects
+        if let pins = fetchedResultsController.fetchedObjects {
+            for pin in pins {
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
+                mapView.addAnnotation(annotation)
+                
+            }
+        }
+        
+    }
+    
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        
+        saveZoomLevel()
+        
+    }
+    
 }
 
 
