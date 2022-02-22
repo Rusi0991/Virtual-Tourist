@@ -40,6 +40,7 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        collectionButton.isEnabled = false
         setUpFetchedResultController()
         getPhotos()
         setupMap()
@@ -48,6 +49,7 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
 
     func getPhotos(){
         if fetchedResultController.fetchedObjects?.count == 0 {
+            collectionButton.isEnabled = false
             FlickrClient.getPhotos(latitude: pin.latitude, longitude: pin.longitude) { response, error in
                 if error == nil && response?.photos.photo != nil && response?.photos.total != 0{
                     guard let response = response else {return}
@@ -94,6 +96,19 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
     
     @IBAction func collectionButtonTapped(_ sender: Any) {
         
+        collectionButton.isEnabled = false
+        
+        if let album = fetchedResultController.fetchedObjects{
+            for photo in album{
+                dataController.viewContext.delete(photo)
+                
+                setUpFetchedResultController()
+                
+                getPhotos()
+                
+                collectionButton.isEnabled = true
+            }
+        }
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return fetchedResultController.sections?.count ?? 1
@@ -109,6 +124,7 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
         
         let aPhoto = fetchedResultController.object(at : indexPath)
         
+        collectionButton.isEnabled = false
         cell.activityIndicator.startAnimating()
         
         if let url = aPhoto.imageURL{
@@ -134,6 +150,7 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
             }
             cell.activityIndicator.isHidden = true
             cell.activityIndicator.stopAnimating()
+            self.collectionButton.isEnabled = true
         } else{
             
             let placeholderImage = UIImage(systemName: "Flickr")
