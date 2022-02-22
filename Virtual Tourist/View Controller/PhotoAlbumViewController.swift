@@ -109,6 +109,8 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
         
         let aPhoto = fetchedResultController.object(at : indexPath)
         
+        cell.activityIndicator.startAnimating()
+        
         if let url = aPhoto.imageURL{
             if let image = aPhoto.image{
             cell.imageView.image = UIImage(data: image)
@@ -130,6 +132,8 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
                     }
                 }
             }
+            cell.activityIndicator.isHidden = true
+            cell.activityIndicator.stopAnimating()
         } else{
             
             let placeholderImage = UIImage(systemName: "Flickr")
