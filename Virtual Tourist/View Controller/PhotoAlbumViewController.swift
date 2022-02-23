@@ -135,8 +135,9 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
                     if let data = data{
                         let image = UIImage(data: data)
                         cell.imageView.image = image
-                        
+                       
                         do {
+                            aPhoto.image = data
                             try self.dataController.viewContext.save()
                         } catch {
                             fatalError("Unable to save photos: \(error.localizedDescription)")
