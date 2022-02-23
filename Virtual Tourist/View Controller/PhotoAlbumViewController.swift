@@ -159,6 +159,20 @@ class PhotoAlbumViewController: UIViewController,  MKMapViewDelegate, NSFetchedR
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let objectSelected = fetchedResultController.object(at: indexPath)
+        dataController.viewContext.delete(objectSelected)
+        
+        if var photos = fetchedResultController.fetchedObjects{
+            photos.remove(at: indexPath.row)
+        }
+        
+        try? dataController.viewContext.save() // after deleting, you have to save to persist the deleting.
+        setUpFetchedResultController()
+        collectionView.reloadData()
+        
+        
+    }
     
     fileprivate func setupMap() {
         let annotation = MKPointAnnotation()
