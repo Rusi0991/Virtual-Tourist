@@ -20,15 +20,17 @@ class ViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsContr
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadZoomLevel()
+        
         mapView.delegate = self
         mapView.isUserInteractionEnabled = true
         setUpFetchResultsController()
+        loadZoomLevel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         dropPin()
+        setUpFetchResultsController()
         mapView.isUserInteractionEnabled = true
         saveZoomLevel()
     }
@@ -67,7 +69,7 @@ class ViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsContr
     }
     @objc func chosenLocation(gestureRecognizer : UILongPressGestureRecognizer){
         
-        if gestureRecognizer.state == .ended {
+        if gestureRecognizer.state == .began {
             let touchedPoint = gestureRecognizer.location(in: self.mapView)
             
             
@@ -80,7 +82,7 @@ class ViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsContr
             annotation.coordinate = touchedCoordinates
             self.mapView.addAnnotation(annotation)
             addPin(lat: touchedCoordinates.latitude, long: touchedCoordinates.longitude)
-            print("pin: \(touchedCoordinates.latitude), \(touchedCoordinates.longitude)")
+            debugPrint("pin: \(touchedCoordinates.latitude), \(touchedCoordinates.longitude)")
         }
     }
     
@@ -100,6 +102,24 @@ class ViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsContr
         
         setUpFetchResultsController() //-> after saving the pin, grab pins from core data again so that it includes the new one.
         
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+
+        let reuseId = "pin"
+
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.pinTintColor = .red
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+
+
+        return pinView
     }
     
 
